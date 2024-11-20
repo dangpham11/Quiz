@@ -3,14 +3,28 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavDropdown } from "react-bootstrap";
+import { useAuth } from "../Context/AuthContext";
 import pic from "../Layout/pic.jpg";
 import "../Layout/Navbar.css";
+import { useNavigate } from "react-router";
 
 const Navbars = () => {
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const navigate = useNavigate();
+  // Xử lý đăng xuất
+  const handleLogout = () => {
+    // Xóa token khỏi localStorage
+    localStorage.removeItem("token");
+    // Cập nhật trạng thái đăng nhập
+    setIsLoggedIn(false);
+    navigate("/Login");
+  };
+
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/">
+        {/* Thay đổi liên kết Navbar.Brand tùy thuộc vào trạng thái đăng nhập */}
+        <Navbar.Brand href={isLoggedIn ? "/home" : "/Login"}>
           <img
             alt=""
             src="/logo192.png"
@@ -22,24 +36,24 @@ const Navbars = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/AddQues">Question</Nav.Link>
-            <Nav.Link href="/Reigester">Pricing</Nav.Link>
-          </Nav>
-          <Nav>
-            <NavDropdown
-              title={
-                <img
-                  className="img-title"
-                  src={pic} // Đường dẫn đến ảnh đại diện của bạn
-                  alt="Avatar"
-                />
-              }
-              id="collapsible-nav-dropdown"
-            >
-              <NavDropdown.Item href="#action/3.1">Đăng xuất</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+          {isLoggedIn ? (
+            <>
+              <Nav className="me-auto">
+                <Nav.Link href="/AddQues">Question</Nav.Link>
+              </Nav>
+              <Nav>
+                {/* Hiển thị Avatar và menu đăng xuất */}
+                <NavDropdown
+                  title={<img className="img-title" src={pic} alt="Avatar" />}
+                  id="collapsible-nav-dropdown"
+                >
+                  <NavDropdown.Item onClick={handleLogout}>
+                    Đăng xuất
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+            </>
+          ) : null}
         </Navbar.Collapse>
       </Container>
     </Navbar>
