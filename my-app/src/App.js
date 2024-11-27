@@ -7,10 +7,11 @@ import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
 import { ToastContainer } from "react-toastify";
 import { Navigate } from "react-router-dom";
+import AnswerQuestions from "./Components/Questions/AnsQues/AnsQues";
 
 function App() {
   return (
-    <main className="container">
+    <main>
       <Router>
         <Navbars />
         <Routes>
@@ -26,6 +27,7 @@ function App() {
           <Route path="/AddQues" element={<AddQues />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/Answer" element={<AnswerQuestions />} />
         </Routes>
       </Router>
       <ToastContainer />

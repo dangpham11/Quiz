@@ -9,6 +9,7 @@ const loginApi = async (loginData) => {
     throw error.response?.data || "Login failed";
   }
 };
+
 const registerApi = async (data) => {
   try {
     const response = await axios.post("/Account/register", data);
@@ -18,5 +19,21 @@ const registerApi = async (data) => {
     throw error.response?.data || "Register failed";
   }
 };
+const getSubjects = async () => {
+  try {
+    const response = await axios.get("/subjects");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const createQuestion = async (quizQustion) => {
+  try {
+    const response = await axios.post("/create-new-question", quizQustion);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-export { loginApi, registerApi };
+export { loginApi, registerApi, getSubjects, createQuestion };

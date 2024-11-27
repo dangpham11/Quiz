@@ -1,48 +1,41 @@
-.card {
-  flex: 1 1 calc(25% - 20px); /* Chiều rộng mỗi Card là 25% trừ khoảng cách */
-  max-width: calc(25% - 20px); /* Giới hạn tối đa */
-  min-width: 200px; /* Đảm bảo Card không nhỏ hơn 200px */
-}
-.body {
-  display: flex;
-  flex-wrap: wrap; /* Cho phép xuống hàng khi hết chỗ */
-  gap: 20px; /* Khoảng cách giữa các Card */
-  justify-content: center; /* Căn giữa các Card */
-  padding: 20px;
-}
-.card-title a {
-  text-decoration: none; /* Loại bỏ gạch dưới */
-  color: inherit; /* Đảm bảo màu sắc kế thừa từ Card.Title */
-}
-.card-title {
-  display: inline-block; /* Đảm bảo Card.Title chỉ là một phần tử inline-block */
-}
-/* Home.css */
 .card-container {
   display: flex;
-  flex-wrap: wrap; /* Cho phép các item xuống hàng khi không đủ chỗ */
-  gap: 16px; /* Khoảng cách giữa các card */
-  justify-content: flex-start; /* Căn các card sang bên trái */
+  flex-wrap: wrap;
+  gap: 20px; /* Tăng khoảng cách giữa các card */
+  justify-content: left; /* Căn giữa thay vì bên trái */
+  padding: 20px;
 }
 
 .card {
-  flex: 1 1 calc(25% - 16px); /* Mỗi card chiếm 1/3 chiều rộng */
-  max-width: calc(25% - 16px); /* Đảm bảo card không quá rộng */
-  box-sizing: border-box; /* Đảm bảo padding không làm vượt quá kích thước */
+  flex: 1 1 calc(25% - 20px);
+  max-width: calc(25% - 20px);
+  min-width: 240px; /* Tăng kích thước tối thiểu để dễ đọc */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm shadow để nổi bật */
+  border-radius: 8px; /* Làm góc card bo tròn */
+  overflow: hidden; /* Đảm bảo nội dung không tràn */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng hover */
 }
 
-/* Tùy chỉnh cho màn hình nhỏ hơn */
+.card:hover {
+  transform: translateY(-5px); /* Tạo hiệu ứng nổi khi hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .card {
-    flex: 1 1 calc(50% - 16px); /* 2 card trong mỗi hàng cho màn hình nhỏ */
-    max-width: calc(50% - 16px);
+    flex: 1 1 calc(50% - 20px);
+    max-width: calc(50% - 20px);
   }
 }
 
-/* Tùy chỉnh cho màn hình cực nhỏ */
 @media (max-width: 480px) {
   .card {
-    flex: 1 1 100%; /* 1 card trên mỗi hàng cho màn hình rất nhỏ */
+    flex: 1 1 100%;
     max-width: 100%;
   }
+}
+.card img {
+  width: 100%; /* Đảm bảo hình ảnh chiếm đủ chiều rộng */
+  height: auto; /* Giữ nguyên tỷ lệ */
 }

@@ -21,10 +21,9 @@ const Navbars = () => {
   };
 
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-      <Container>
-        {/* Thay đổi liên kết Navbar.Brand tùy thuộc vào trạng thái đăng nhập */}
-        <Navbar.Brand href={isLoggedIn ? "/home" : "/Login"}>
+    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary ">
+      <Container className="container-navbar">
+        <Navbar.Brand href={isLoggedIn ? "/home" : "/Login"} className="ms-0">
           <img
             alt=""
             src="/logo192.png"
@@ -35,14 +34,16 @@ const Navbars = () => {
           Quiz
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          className="d-flex justify-content-between"
+        >
           {isLoggedIn ? (
             <>
               <Nav className="me-auto">
                 <Nav.Link href="/AddQues">Question</Nav.Link>
               </Nav>
-              <Nav>
-                {/* Hiển thị Avatar và menu đăng xuất */}
+              <Nav className="ms-auto">
                 <NavDropdown
                   title={<img className="img-title" src={pic} alt="Avatar" />}
                   id="collapsible-nav-dropdown"

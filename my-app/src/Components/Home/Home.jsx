@@ -12,52 +12,7 @@ const Home = () => {
           <Card className="card">
             <Card.Img variant="top" src={studyImage} />
             <Card.Body>
-              <Link to="/Addques" className="card-title">
-                <Card.Title>Chuyên đề tổng hợp</Card.Title>
-              </Link>
-            </Card.Body>
-          </Card>
-
-          <Card className="card">
-            <Card.Img variant="top" src={studyImage} />
-            <Card.Body>
-              <Link to="/Addques" className="card-title">
-                <Card.Title>Chuyên đề tổng hợp</Card.Title>
-              </Link>
-            </Card.Body>
-          </Card>
-
-          <Card className="card">
-            <Card.Img variant="top" src={studyImage} />
-            <Card.Body>
-              <Link to="/Addques" className="card-title">
-                <Card.Title>Chuyên đề tổng hợp</Card.Title>
-              </Link>
-            </Card.Body>
-          </Card>
-
-          <Card className="card">
-            <Card.Img variant="top" src={studyImage} />
-            <Card.Body>
-              <Link to="/Addques" className="card-title">
-                <Card.Title>Chuyên đề tổng hợp</Card.Title>
-              </Link>
-            </Card.Body>
-          </Card>
-
-          <Card className="card">
-            <Card.Img variant="top" src={studyImage} />
-            <Card.Body>
-              <Link to="/Addques" className="card-title">
-                <Card.Title>Chuyên đề tổng hợp</Card.Title>
-              </Link>
-            </Card.Body>
-          </Card>
-
-          <Card className="card">
-            <Card.Img variant="top" src={studyImage} />
-            <Card.Body>
-              <Link to="/Addques" className="card-title">
+              <Link to="/Answer" className="card-title">
                 <Card.Title>Chuyên đề tổng hợp</Card.Title>
               </Link>
             </Card.Body>
