@@ -1,0 +1,63 @@
+.quiz-overview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #f2f2f2;
+  width: 600px;
+  height: 400px;
+  margin-left: 400px;
+  background-color: #fff;
+  margin-top: 100px;
+}
+.quiz-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.quiz-name {
+  font-weight: bold;
+  font-size: 24px;
+}
+.timer {
+  margin-left: 135px;
+}
+.start-button {
+  margin-top: 20px;
+  padding: 8px 24px;
+  background-color: #007d34;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.start-button:hover {
+  background-color: #1e4d3e;
+  transform: scale(1.05);
+}
+
+.another-quiz {
+  color: #2d6a4f;
+  margin-top: 15px;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  margin-left: 150 px;
+  display: flex;
+}
+
+.another-quiz:hover {
+  text-decoration: underline;
+}
+.timer-icon {
+  color: #2d6a4f;
+  font-size: 20px;
+}
+
+/* Định dạng cho text timer */
+.timer-text {
+  font-size: 16px;
+  color: black;
+  margin-left: 5px;
+}

@@ -8,6 +8,8 @@ import Login from "./Components/Login/Login";
 import { ToastContainer } from "react-toastify";
 import { Navigate } from "react-router-dom";
 import AnswerQuestions from "./Components/Questions/AnsQues/AnsQues";
+import ScoreQues from "./Components/Questions/ScoreQues/ScoreQues";
+import InfoQues from "./Components/Questions/InfoQues/InfoQues";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Answer" element={<AnswerQuestions />} />
+          <Route path="/Score" element={<ScoreQues />} />
+          <Route path="/Info" element={<InfoQues />} />
         </Routes>
       </Router>
       <ToastContainer />
