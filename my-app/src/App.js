@@ -29,9 +29,9 @@ function App() {
           <Route path="/AddQues" element={<AddQues />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Login" element={<Login />} />
-          <Route path="/Answer" element={<AnswerQuestions />} />
+          <Route path="/Answer/:quizId" element={<AnswerQuestions />} />
           <Route path="/Score" element={<ScoreQues />} />
-          <Route path="/Info" element={<InfoQues />} />
+          <Route path="/Info/:quizId" element={<InfoQues />} />
         </Routes>
       </Router>
       <ToastContainer />

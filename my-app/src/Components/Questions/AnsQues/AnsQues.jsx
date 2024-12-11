@@ -1,33 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
+import { getQuizbyId } from "../../../Services/UseService"; // Ensure this is the correct API function
 import "./AnsQues.css";
-import { useNavigate } from "react-router";
 
 const AnswerQuestions = () => {
-  const [questions, setQuestions] = useState([
-    {
-      id: 1,
-      question:
-        "What does the typeof operator in JavaScript return with the following data types?",
-      options: ["A: string", "B: number", "C: boolean", "D: undefined"],
-      correctAnswer: "D: undefined",
-    },
-    {
-      id: 2,
-      question: "Which company developed JavaScript?",
-      options: ["A: Microsoft", "B: Netscape", "C: Google", "D: IBM"],
-      correctAnswer: "B: Netscape",
-    },
-    {
-      id: 3,
-      question: "Which company developed JavaScript?",
-      options: ["A: Microsoft", "B: Netscape", "C: Google", "D: IBM"],
-      correctAnswer: "B: Netscape",
-    },
-  ]); // Questions list
+  const { quizId } = useParams(); // Get quiz ID from URL
   const navigate = useNavigate();
+  const [questions, setQuestions] = useState([]); // Questions list
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [score, setScore] = useState(0);
+
+  // Fetch quiz questions by ID
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      try {
+        const data = await getQuizbyId(quizId); // Fetch quiz by ID
+        setQuestions(data.data.questions); // Set questions in state
+      } catch (error) {
+        console.error("Error fetching quiz details:", error);
+      }
+    };
+
+    fetchQuiz();
+  }, [quizId]);
 
   const handleOptionClick = (option) => {
     setSelectedAnswers((prevAnswers) => {
@@ -55,7 +51,10 @@ const AnswerQuestions = () => {
     let incorrectAnswers = 0;
 
     questions.forEach((question, index) => {
-      if (selectedAnswers[index] === question.correctAnswer) {
+      const selectedAnswer = selectedAnswers[index];
+      const correctAnswer = question.answers.find((answer) => answer.correct);
+
+      if (selectedAnswer === correctAnswer?.content) {
         calculatedScore++;
         correctAnswers++;
       } else {
@@ -63,12 +62,22 @@ const AnswerQuestions = () => {
       }
     });
 
-    setScore(calculatedScore); // Cập nhật điểm trong state
-    // Điều hướng đến trang ScoreQues và truyền dữ liệu điểm số, đúng và sai
+    setScore(calculatedScore); // Update score in state
+    // Navigate to ScoreQues page with score data
     navigate("/Score", {
-      state: { score: calculatedScore, correctAnswers, incorrectAnswers },
+      state: {
+        score: calculatedScore,
+        correctAnswers,
+        incorrectAnswers,
+        quizId: quizId,
+      },
     });
   };
+
+  // Ensure questions data is available
+  if (questions.length === 0) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="answer-question-form">
@@ -78,7 +87,7 @@ const AnswerQuestions = () => {
             <i className="fa-solid fa-code quiz-icon"></i>
           </div>
           <div className="quiz-details">
-            <h2 className="quiz-title">Javascript Quiz</h2>
+            <h2 className="quiz-title">{questions[0].quizTitle}</h2>
             <span className="quiz-subtitle">{questions.length} Questions</span>
           </div>
         </div>
@@ -90,20 +99,20 @@ const AnswerQuestions = () => {
       <div>
         <div className="question-block">
           <div className="question-number">{currentQuestionIndex + 1}</div>
-          <p>{questions[currentQuestionIndex].question}</p>
+          <p>{questions[currentQuestionIndex].content}</p>
         </div>
         <div className="answer-options">
-          {questions[currentQuestionIndex].options.map((option, index) => (
+          {questions[currentQuestionIndex].answers.map((option, index) => (
             <div
               key={index}
               className={`answer-option ${
-                selectedAnswers[currentQuestionIndex] === option
+                selectedAnswers[currentQuestionIndex] === option.content
                   ? "selected"
                   : ""
               }`}
-              onClick={() => handleOptionClick(option)}
+              onClick={() => handleOptionClick(option.content)}
             >
-              {option}
+              {option.content}
             </div>
           ))}
         </div>

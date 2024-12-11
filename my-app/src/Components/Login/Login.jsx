@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../Login/Login.css";
 import { toast } from "react-toastify";
-import { loginApi } from "../../Services/UseService";
+import { loginApi } from "../../Services/UseService"; // Import the updated loginApi
 import { useAuth } from "../Context/AuthContext";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -13,22 +13,24 @@ const Login = () => {
 
   const handleLogin = async () => {
     if (!username || !password) {
-      toast.error("Username/Password is required");
+      toast.error("Username and password are required!");
       return;
     }
 
-    let res = await loginApi({ username, password });
-    console.log(">>>check: ", res);
-    if (res && res.token) {
-      localStorage.setItem("token", res.token);
-      setIsLoggedIn(true);
-      navigate("/home");
-    } else {
-      if (res && res.status === 401) {
-        toast.error(res.title);
+    try {
+      const res = await loginApi({ username, password });
+      console.log("Login Response:", res);
+
+      if (res?.result?.token) {
+        localStorage.setItem("token", res.result.token); // Store the token
+        setIsLoggedIn(true); // Update auth context state
+        toast.success("Login successful!");
+        navigate("/home"); // Navigate to the home page
       } else {
-        toast.error(res);
+        toast.error("Unexpected response from server.");
       }
+    } catch (error) {
+      toast.error(error || "Login failed!");
     }
   };
 
@@ -36,12 +38,13 @@ const Login = () => {
     <div className="login">
       <div className="wrapper">
         <div className="title">Login</div>
-        <form action="#">
+        <form>
           <div className="field">
             <input
               type="text"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
+              placeholder="Enter username"
             />
             <label>Username</label>
           </div>
@@ -50,11 +53,12 @@ const Login = () => {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              placeholder="Enter password"
             />
             <label>Password</label>
           </div>
           <div className="field">
-            <button type="button" onClick={() => handleLogin()}>
+            <button type="button" onClick={handleLogin}>
               Login
             </button>
           </div>

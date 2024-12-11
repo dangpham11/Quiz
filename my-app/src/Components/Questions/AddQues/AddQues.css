@@ -168,7 +168,7 @@
   border-bottom: 1px solid #ccc;
   padding-top: 4px;
   background: #f2f2f2;
-  width: 400px;
+  width: 700px;
   font-size: 13px;
   margin-left: 20px;
 }
@@ -299,29 +299,49 @@
 /* Hiệu ứng hover cho icon */
 
 .correct-choice-btn {
-  width: 30px;
-  height: 30px;
+  width: auto;
+  padding: 5px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
+  border: 1px solid transparent;
   background-color: transparent;
   cursor: pointer;
-  background-color: #007d34;
+  background-color: #007d34; /* Màu nền ban đầu cho đáp án đúng */
+  color: #fff; /* Màu chữ */
   border-radius: 5px;
-  color: #f2f2f2;
-  position: absolute;
-  right: 100px;
-  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu */
+  font-weight: bold;
+  position: relative;
+  transition: all 0.3s ease; /* Hiệu ứng chuyển màu */
+  font-size: 14px; /* Kích thước chữ */
+  margin: 5px;
 }
 
-/* Hiệu ứng khi chọn đáp án đúng */
-.correct-choice-btn.selected {
-  background-color: #1e4d3e; /* Đổi màu khi đáp án đúng được chọn */
+/* Khi đáp án đúng được chọn */
+.correct-choice-btn.selected-correct {
+  background-color: #28a745; /* Xanh lá cây cho đáp án đúng */
+  border-color: #218838; /* Đường viền khi đúng */
 }
 
+/* Khi đáp án sai được chọn */
+.correct-choice-btn.selected-incorrect {
+  background-color: #dc3545; /* Đỏ cho đáp án sai */
+  border-color: #c82333; /* Đường viền khi sai */
+}
+
+/* Hiệu ứng khi hover */
 .correct-choice-btn:hover {
-  background-color: #1e4d3e; /* Đổi màu khi hover */
+  transform: scale(1.1); /* Phóng to một chút khi hover */
+}
+
+/* Hiệu ứng cho chữ khi hover */
+.correct-choice-btn:hover span {
+  text-decoration: underline; /* Gạch dưới chữ khi hover */
+}
+
+/* Hiệu ứng khi nhấn vào nút */
+.correct-choice-btn:active {
+  transform: scale(0.98); /* Thu nhỏ một chút khi nhấn */
 }
 
 .delete-choice-btn {
@@ -337,7 +357,7 @@
   border-radius: 5px;
   color: #f2f2f2;
   position: absolute;
-  right: 60px;
+  right: 40px;
 }
 
 .delete-choice-btn:hover {

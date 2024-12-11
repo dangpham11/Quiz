@@ -5,49 +5,45 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
 const Register = () => {
-  const [name, setName] = useState("");
+  const [fullname, setFullname] = useState(""); // Change name to fullname
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    // Kiểm tra xem thông tin nhập vào có hợp lệ không
-    if (!username || !password) {
+    if (!fullname || !username || !password) {
+      // Ensure fullname is checked
       toast.error("All fields are required");
       return;
     }
 
     try {
-      const res = await registerApi({ username, password });
+      const res = await registerApi({ fullname, username, password }); // Pass fullname here
       console.log("check>>>: ", res);
-      if (res && Array.isArray(res) && res.length > 0) {
-        // Lấy tất cả thông báo lỗi (description) và hiển thị bằng toast
-        res.forEach((error) => {
-          toast.error(error.description || "Unknown error");
-        });
-      } else if (res && res.token) {
+      if (res && res.token) {
         toast.success("Registration successful!");
-        navigate("/Login"); // Chuyển hướng sang trang đăng nhập
+        navigate("/Login");
       } else {
-        toast.error(res);
+        toast.error(res || "Registration failed");
       }
     } catch (error) {
       toast.error("An unexpected error occurred.");
       console.error(error);
     }
   };
+
   return (
     <div className="reigester">
       <div className="wrapper">
-        <div className="title">Reigester</div>
+        <div className="title">Register</div>
         <form action="#">
           <div className="field">
             <input
               type="text"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              value={fullname}
+              onChange={(event) => setFullname(event.target.value)} // Update fullname here
             />
-            <label>Name</label>
+            <label>Fullname</label> {/* Update label to Fullname */}
           </div>
           <div className="field">
             <input
@@ -67,7 +63,7 @@ const Register = () => {
           </div>
           <div className="field">
             <button type="button" onClick={() => handleRegister()}>
-              Reigester
+              Register
             </button>
           </div>
           <div className="signup-link">
