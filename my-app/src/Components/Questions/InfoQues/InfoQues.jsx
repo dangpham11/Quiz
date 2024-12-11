@@ -7,7 +7,7 @@ const InfoQues = () => {
   const { quizId } = useParams(); // Get quiz ID from URL
   const navigate = useNavigate();
   const [quiz, setQuiz] = useState(null); // Store quiz data
-
+  const [showOptions, setShowOptions] = useState(false);
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
@@ -29,6 +29,9 @@ const InfoQues = () => {
   const handleSelectAnotherQuiz = () => {
     navigate("/home"); // Navigate back to the home page
   };
+  const toggleOptions = () => {
+    setShowOptions(!showOptions); // Toggle visibility of options
+  };
 
   // Add a check for undefined quiz or quiz.questions
   if (!quiz || !quiz.questions) {
@@ -37,6 +40,19 @@ const InfoQues = () => {
 
   return (
     <div className="quiz-overview-content">
+      <i
+        className="fa-solid fa-ellipsis threedot-option"
+        onClick={toggleOptions}
+      ></i>
+      
+
+      {showOptions && (
+        <div className="options-menu">
+          <button onClick={() => console.log("Modify clicked")}>Modify</button>
+          <button onClick={() => console.log("Modify clicked")}>Delete</button>
+        </div>
+      )}
+
       <i className="fa-solid fa-face-smile result-icon"></i>
       <div className="quiz-title">
         <h2 className="quiz-title">{quiz.title}</h2>{" "}
