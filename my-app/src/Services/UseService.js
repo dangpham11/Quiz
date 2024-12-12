@@ -50,4 +50,44 @@ const createQuestion = async (quizQuestion) => {
   }
 };
 
-export { loginApi, registerApi, getQuiz, createQuestion, getQuizbyId };
+const deleteQuiz = async (id) => {
+  try {
+    const response = await axios.delete(`/quiz/delete-quiz/${id}`);
+    return response.data; 
+  } catch (error) {
+    console.error("Error deleting quiz:", error);
+    throw error.response?.data || "Delete failed";
+  }
+};
+
+
+
+export const updateQuiz = async (quizId, quizData) => {
+  try {
+    const response = await axios.put(
+      `/quiz/update-quiz/${quizId}`, // Đường dẫn API
+      quizData, // Dữ liệu cần cập nhật
+      {
+        headers: {
+          "Content-Type": "application/json", // Header định dạng JSON
+        },
+      }
+    );
+    return response.data; // Trả về kết quả từ backend
+  } catch (error) {
+    console.error("Error updating quiz:", error);
+    throw error; // Ném lỗi để xử lý ở component
+  }
+};
+
+
+
+export { 
+  loginApi, 
+  registerApi, 
+  getQuiz, 
+  createQuestion, 
+  getQuizbyId, 
+  deleteQuiz, 
+
+};

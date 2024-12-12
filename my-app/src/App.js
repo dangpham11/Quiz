@@ -10,6 +10,8 @@ import { Navigate } from "react-router-dom";
 import AnswerQuestions from "./Components/Questions/AnsQues/AnsQues";
 import ScoreQues from "./Components/Questions/ScoreQues/ScoreQues";
 import InfoQues from "./Components/Questions/InfoQues/InfoQues";
+import ModifyQuiz from "./Components/Questions/AddQues/ModifyQues";
+
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           <Route path="/Answer/:quizId" element={<AnswerQuestions />} />
           <Route path="/Score" element={<ScoreQues />} />
           <Route path="/Info/:quizId" element={<InfoQues />} />
+          <Route path="/modify/:quizId" element={<ModifyQuiz />} />
+
         </Routes>
       </Router>
       <ToastContainer />

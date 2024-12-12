@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import { getQuizbyId } from "../../../Services/UseService"; // Assuming this is the correct API function
+import { getQuizbyId, deleteQuiz,updateQuiz } from "../../../Services/UseService"; // Assuming this is the correct API function
 import "./InfoQues.css";
 
 const InfoQues = () => {
   const { quizId } = useParams(); // Get quiz ID from URL
   const navigate = useNavigate();
   const [quiz, setQuiz] = useState(null); // Store quiz data
-  const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState(false); // An, hien option
+
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
@@ -29,9 +30,23 @@ const InfoQues = () => {
   const handleSelectAnotherQuiz = () => {
     navigate("/home"); // Navigate back to the home page
   };
+
   const toggleOptions = () => {
     setShowOptions(!showOptions); // Toggle visibility of options
   };
+  const handleDeleteQuiz = async () => {
+    try {
+      await deleteQuiz(quizId); // Call the deleteQuiz function
+      navigate("/home"); // Redirect to home page after successful deletion
+    } catch (error) {
+      console.error("Error deleting quiz:", error);
+      alert("Failed to delete quiz"); // Show error message if deletion fails
+    }
+  };
+  const handleModifyQuiz = () => {
+    navigate(`/modify/${quizId}`); // Điều hướng đến trang ModifyQuiz
+  };
+  
 
   // Add a check for undefined quiz or quiz.questions
   if (!quiz || !quiz.questions) {
@@ -44,19 +59,17 @@ const InfoQues = () => {
         className="fa-solid fa-ellipsis threedot-option"
         onClick={toggleOptions}
       ></i>
-      
 
       {showOptions && (
         <div className="options-menu">
-          <button onClick={() => console.log("Modify clicked")}>Modify</button>
-          <button onClick={() => console.log("Modify clicked")}>Delete</button>
+          <button onClick={handleModifyQuiz}>Modify</button>
+          <button onClick={handleDeleteQuiz}>Delete</button>
         </div>
       )}
 
       <i className="fa-solid fa-face-smile result-icon"></i>
       <div className="quiz-title">
         <h2 className="quiz-title">{quiz.title}</h2>{" "}
-        {/* Make sure title exists */}
         <span className="quiz-subtitle">{quiz.questions.length} Questions</span>
         <div className="timer">
           <i className="fa-solid fa-stopwatch timer-icon"></i>

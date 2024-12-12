@@ -38,7 +38,7 @@ body {
   color: #fff;
   user-select: none;
   border-radius: 15px 15px 0 0;
-  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  background: #2d6b4f;
 }
 .wrapper form {
   padding: 10px 30px 50px 30px;
@@ -61,7 +61,7 @@ body {
 }
 .wrapper form .field input:focus,
 form .field input:valid {
-  border-color: #4158d0;
+  border-color: #2d6b4f;
 }
 .wrapper form .field label {
   position: absolute;
@@ -116,7 +116,7 @@ form .field input[type="submit"] {
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
-  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  background: #2d6b4f;
   transition: all 0.3s ease;
 }
 form .field input[type="submit"]:active {
@@ -144,7 +144,7 @@ form .field button {
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
-  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  background: #2d6b4f;
   border-radius: 25px;
   height: 50px;
   width: 100%;
