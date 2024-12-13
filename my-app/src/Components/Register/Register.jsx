@@ -20,7 +20,7 @@ const Register = () => {
     try {
       const res = await registerApi({ fullname, username, password }); // Pass fullname here
       console.log("check>>>: ", res);
-      if (res && res.token) {
+      if (res) {
         toast.success("Registration successful!");
         navigate("/Login");
       } else {

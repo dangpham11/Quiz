@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./AddQues.css";
 import { createQuestion } from "../../../Services/UseService";
+import { useNavigate } from "react-router-dom";
 
 const AddQues = ({ onSubmit }) => {
   const [quizTitle, setQuizTitle] = useState(""); // Quiz Title state
   const [questions, setQuestions] = useState([
     { question: "", options: ["", "", "", ""], correctAnswer: "" },
   ]);
+  const navigate = useNavigate();
 
   // Handle changes to the quiz title
   const handleQuizTitleChange = (e) => {
@@ -106,6 +108,7 @@ const AddQues = ({ onSubmit }) => {
       setQuestions([
         { question: "", options: ["", "", "", ""], correctAnswer: "" },
       ]);
+      navigate("/home");
     } catch (error) {
       console.error("Error creating quiz:", error);
     }

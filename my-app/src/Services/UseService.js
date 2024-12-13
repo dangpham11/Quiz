@@ -24,12 +24,13 @@ const registerApi = async (data) => {
   }
 };
 
-const getQuiz = async () => {
+const getQuiz = async (userId) => {
   try {
-    const response = await axios.get("/quiz/get-quizs/1");
+    const response = await axios.get(`/quiz/get-quizs/${userId}`); // Sử dụng userId trong URL
     return response.data;
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching quizzes by user ID:", error);
+    throw error.response?.data || "Failed to fetch quizzes";
   }
 };
 const getQuizbyId = async (id) => {
@@ -53,14 +54,12 @@ const createQuestion = async (quizQuestion) => {
 const deleteQuiz = async (id) => {
   try {
     const response = await axios.delete(`/quiz/delete-quiz/${id}`);
-    return response.data; 
+    return response.data;
   } catch (error) {
     console.error("Error deleting quiz:", error);
     throw error.response?.data || "Delete failed";
   }
 };
-
-
 
 export const updateQuiz = async (quizId, quizData) => {
   try {
@@ -80,14 +79,11 @@ export const updateQuiz = async (quizId, quizData) => {
   }
 };
 
-
-
-export { 
-  loginApi, 
-  registerApi, 
-  getQuiz, 
-  createQuestion, 
-  getQuizbyId, 
-  deleteQuiz, 
-
+export {
+  loginApi,
+  registerApi,
+  getQuiz,
+  createQuestion,
+  getQuizbyId,
+  deleteQuiz,
 };
