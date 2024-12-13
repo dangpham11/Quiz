@@ -3,8 +3,6 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { NavDropdown } from "react-bootstrap";
 import { useAuth } from "../Context/AuthContext";
@@ -12,6 +10,7 @@ import pic from "../Layout/pic.jpg";
 import "../Layout/Navbar.css";
 import { useNavigate } from "react-router";
 import { getQuizbyId } from "../../Services/UseService"; // Import function to check quiz by ID
+import { toast } from "react-toastify";
 
 const Navbars = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
@@ -31,11 +30,11 @@ const Navbars = () => {
     try {
       // Check if quiz exists using getQuizbyId
       const data = await getQuizbyId(quizIdInput);
-      if (data) {
+      if (data && data.data && data.data.id === parseInt(quizIdInput)) {
         navigate(`/info/${quizIdInput}`);
-        setQuizIdInput(""); // Redirect to info page if quiz found
+        setQuizIdInput(""); // Redirect to info page if quiz found // Clear error on successful navigation
       } else {
-        setError("Quiz not found.");
+        toast.error("Quiz không tồn tại");
       }
     } catch (error) {
       setError("Failed to load quiz. Please try again.");
@@ -73,28 +72,22 @@ const Navbars = () => {
               <Nav className="me-auto">
                 <Nav.Link href="/AddQues">Question</Nav.Link>
               </Nav>
-
-              <Form inline onSubmit={handleJoinQuiz}>
+              <Form className="d-flex" inline onSubmit={handleJoinQuiz}>
                 {" "}
                 {/* Modify form submit */}
-                <Row>
-                  <Col xs="auto">
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Quiz ID"
-                      className="mr-sm-2"
-                      value={quizIdInput}
-                      onChange={handleQuizIdChange}
-                    />
-                  </Col>
-                  <Col xs="auto">
-                    <Button type="submit">Join</Button>
-                  </Col>
-                </Row>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Quiz ID"
+                  className="me-2"
+                  value={quizIdInput}
+                  onChange={handleQuizIdChange}
+                />
+                <Button type="submit" variant="outline-success">
+                  Join
+                </Button>
                 {error && <div className="text-danger">{error}</div>}{" "}
                 {/* Display error message */}
               </Form>
-
               <Nav className="ms-auto">
                 <NavDropdown
                   title={<img className="img-title" src={pic} alt="Avatar" />}
